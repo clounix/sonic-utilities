@@ -596,6 +596,14 @@ then
   systemctl stop nps-modules-$(uname -r).service || debug "Ignore stopping nps service error $?"
 fi
 
+# Stop kernel modules for Clounix platform
+if [[ "$sonic_asic_type" = 'clounix' ]];
+then
+  systemctl stop clx-modules-`uname -r`.service || debug "Ignore stopping clx service error $?"
+fi
+
+
+
 if [[ "$REBOOT_TYPE" = "fast-reboot" ]]; then
     # Remove FLEX_COUNTER_TABLE from config_db.json
     # This is done so that in fast-reboot recovery path, FLEX_COUNTER polling is delayed.
